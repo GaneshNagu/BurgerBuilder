@@ -22,6 +22,7 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 4,
     purchasebuton: false,
+    purchased: false,
   };
 
   updatepurchasablestate(ingredients) {
@@ -73,6 +74,10 @@ class BurgerBuilder extends Component {
     this.updatepurchasablestate(newIngredinets);
   };
 
+  purchasedButon = () => {
+    this.setState({ purchased: true });
+  };
+
   render() {
     const disabledicons = {
       ...this.state.ingredients,
@@ -84,7 +89,7 @@ class BurgerBuilder extends Component {
 
     return (
       <Auxillary>
-        <Modal>
+        <Modal show={this.state.purchased}>
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
@@ -94,6 +99,7 @@ class BurgerBuilder extends Component {
           disabled={disabledicons}
           price={this.state.totalPrice}
           pruchasebut={this.state.purchasebuton}
+          clicked={this.purchasedButon}
         />
       </Auxillary>
     );
