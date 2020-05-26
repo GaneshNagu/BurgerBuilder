@@ -78,6 +78,10 @@ class BurgerBuilder extends Component {
     this.setState({ purchased: true });
   };
 
+  backdropclickedHandler = () => {
+    this.setState({ purchased: false });
+  };
+
   render() {
     const disabledicons = {
       ...this.state.ingredients,
@@ -89,8 +93,15 @@ class BurgerBuilder extends Component {
 
     return (
       <Auxillary>
-        <Modal show={this.state.purchased}>
-          <OrderSummary ingredients={this.state.ingredients} />
+        <Modal
+          show={this.state.purchased}
+          backdropclosed={this.backdropclickedHandler}
+        >
+          <OrderSummary
+            show={this.state.purchased}
+            ingredients={this.state.ingredients}
+            butclicked={this.backdropclickedHandler}
+          />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls

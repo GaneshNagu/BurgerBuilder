@@ -1,5 +1,6 @@
 import React from "react";
 import Auxillary from "../../Hoc/Auxillary";
+import Button from "../UI/Button/Button";
 
 const OrderSummary = (props) => {
   const ingredients = Object.keys(props.ingredients).map((igkey, index) => {
@@ -18,6 +19,12 @@ const OrderSummary = (props) => {
       <p>your Order will be created with the Following ingredients</p>
       <ul>{ingredients}</ul>
       <p> Do you want to checkout ?</p>
+      <Button butclicked={props.butclicked} btnType="Danger">
+        CANCEL
+      </Button>
+      <Button butclicked={props.butclicked} btnType="Success">
+        CONTINUE
+      </Button>
     </Auxillary>
   );
 };
