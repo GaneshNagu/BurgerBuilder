@@ -101,6 +101,7 @@ class BurgerBuilder extends Component {
             show={this.state.purchased}
             ingredients={this.state.ingredients}
             butclicked={this.backdropclickedHandler}
+            price={this.state.totalPrice}
           />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
