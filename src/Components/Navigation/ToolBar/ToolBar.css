@@ -16,3 +16,13 @@
 .ToolBar Nav {
   height: 100%;
 }
+
+.Logo{
+  height: 80%;
+}
+
+@media (Max-width:500px){
+  .sidebar{
+    display: none;
+  }
+}
