@@ -25,7 +25,7 @@ const OrderSummary = (props) => {
       <Button butclicked={props.butclicked} btnType="Danger">
         CANCEL
       </Button>
-      <Button butclicked={props.butclicked} btnType="Success">
+      <Button butclicked={props.clickedcontinue} btnType="Success">
         CONTINUE
       </Button>
     </Auxillary>
