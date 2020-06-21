@@ -87,33 +87,46 @@ class BurgerBuilder extends Component {
   };
 
   continueboughtHandler = () => {
-    this.setState({
-      Loading: true,
-    });
-    const orders = {
-      ingredients: this.state.ingredients,
-      totalPrice: this.state.totalPrice,
-      customerdetails: {
-        name: "nagu",
-        address: {
-          street: "TestNaga street",
-          Zipcode: "89029929",
-          country: "Italy",
-        },
-        email: "kajshdahsj@aslajdkjdakls.com",
-      },
-      Deliverymethod: "Normal",
-    };
-    axios
-      .post("/order.json", orders)
-      .then((Response) => {
-        console.log(Response);
-        this.setState({ Loading: false, purchased: false });
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ Loading: false, purchased: false });
-      });
+    // this.setState({
+    //   Loading: true,
+    // });
+    // const orders = {
+    //   ingredients: this.state.ingredients,
+    //   totalPrice: this.state.totalPrice,
+    //   customerdetails: {
+    //     name: "nagu",
+    //     address: {
+    //       street: "TestNaga street",
+    //       Zipcode: "89029929",
+    //       country: "Italy",
+    //     },
+    //     email: "kajshdahsj@aslajdkjdakls.com",
+    //   },
+    //   Deliverymethod: "Normal",
+    // };
+    // axios
+    //   .post("/order.json", orders)
+    //   .then((Response) => {
+    //     console.log(Response);
+    //     this.setState({ Loading: false, purchased: false });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     this.setState({ Loading: false, purchased: false });
+    //   });
+    const queryparams = [];
+    for (let i in this.state.ingredients) {
+      queryparams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+      console.log("The elements combines as ", queryparams);
+    }
+    const queryString = queryparams.join("&");
+
+    console.log(queryString);
+    this.props.history.push({
+      pathname: '/Checkout',
+      Search: '?' + queryString
+    })
+
   };
 
   render() {
