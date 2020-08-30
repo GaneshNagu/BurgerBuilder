@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+// import { stat } from 'fs-extra';
 
 const initialState = {
     ingredients: {
@@ -11,6 +12,14 @@ const initialState = {
     totalPrice: 6.8
 }
 
+const INGREDIENTS_PRICE = {
+    Meat: 0.7,
+    Cheese: 0.4,
+    Salad: 0.4,
+    Bacon: 1.3,
+};
+
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT:
@@ -20,7 +29,8 @@ const reducer = (state = initialState, action) => {
                 ingredients: {
                     ...state.ingredients,
                     [action.IngredientName]: state.ingredients[action.IngredientName] + 1
-                }
+                },
+                totalPrice: state.totalPrice + INGREDIENTS_PRICE[action.IngredientName]
 
             }
         case actionTypes.REMOVE_INGREDIENT:
@@ -29,7 +39,8 @@ const reducer = (state = initialState, action) => {
                 ingredients: {
                     ...state.ingredients,
                     [action.IngredientName]: state.ingredients[action.IngredientName] - 1
-                }
+                },
+                totalPrice: state.totalPrice - INGREDIENTS_PRICE[action.IngredientName]
             }
         default:
             return state

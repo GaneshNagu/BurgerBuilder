@@ -10,16 +10,10 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../Store/actionTypes';
 // import reducer from '../../Store/reducer';
 
-const INGREDIENTS_PRICE = {
-  Meat: 0.7,
-  Cheese: 0.4,
-  Salad: 0.4,
-  Bacon: 1.3,
-};
 
 class BurgerBuilder extends Component {
   state = {
-    totalPrice: 6.8,
+    // totalPrice: 6.8,
     purchasebuton: false,
     purchased: false,
     Loading: false,
@@ -42,43 +36,43 @@ class BurgerBuilder extends Component {
       sum = sum + ingredients[key];
     }
 
-    this.setState({ purchasebuton: sum > 0 });
+    return sum > 0;
   }
 
-  addIngredientHandler = (type) => {
-    const oldingredval = this.state.ingredients[type];
-    const updateingredval = oldingredval + 1;
-    const newIngredinets = { ...this.state.ingredients };
-    newIngredinets[type] = updateingredval;
+  // addIngredientHandler = (type) => {
+  //   const oldingredval = this.state.ingredients[type];
+  //   const updateingredval = oldingredval + 1;
+  //   const newIngredinets = { ...this.state.ingredients };
+  //   newIngredinets[type] = updateingredval;
 
-    const oldPrice = this.state.totalPrice;
-    // console.log(typeof oldPrice);
-    const priceAddition = INGREDIENTS_PRICE[type];
-    // console.log("the priceaddition", typeof priceAddition);
-    const newPriceVal = oldPrice + priceAddition;
-    // console.log("the new price val", typeof newPriceVal);
-    this.setState({ totalPrice: newPriceVal, ingredients: newIngredinets });
-    // console.log("The Vallues of setstate", typeof this.state.totalPrice);
-    this.updatepurchasablestate(newIngredinets);
-  };
+  //   const oldPrice = this.state.totalPrice;
+  //   // console.log(typeof oldPrice);
+  //   const priceAddition = INGREDIENTS_PRICE[type];
+  //   // console.log("the priceaddition", typeof priceAddition);
+  //   const newPriceVal = oldPrice + priceAddition;
+  //   // console.log("the new price val", typeof newPriceVal);
+  //   this.setState({ totalPrice: newPriceVal, ingredients: newIngredinets });
+  //   // console.log("The Vallues of setstate", typeof this.state.totalPrice);
+  //   this.updatepurchasablestate(newIngredinets);
+  // };
 
-  removeIngredientHandler = (type) => {
-    const oldingredval = this.state.ingredients[type];
-    if (oldingredval <= 0) {
-      return;
-    }
-    const updateingredval = oldingredval - 1;
+  // removeIngredientHandler = (type) => {
+  //   const oldingredval = this.state.ingredients[type];
+  //   if (oldingredval <= 0) {
+  //     return;
+  //   }
+  //   const updateingredval = oldingredval - 1;
 
-    const newIngredinets = { ...this.state.ingredients };
-    newIngredinets[type] = updateingredval;
+  //   const newIngredinets = { ...this.state.ingredients };
+  //   newIngredinets[type] = updateingredval;
 
-    const oldPrice = this.state.totalPrice;
-    const priceDelet = INGREDIENTS_PRICE[type];
-    const newPriceVal = oldPrice - priceDelet;
+  //   const oldPrice = this.state.totalPrice;
+  //   const priceDelet = INGREDIENTS_PRICE[type];
+  //   const newPriceVal = oldPrice - priceDelet;
 
-    this.setState({ totalPrice: newPriceVal, ingredients: newIngredinets });
-    this.updatepurchasablestate(newIngredinets);
-  };
+  //   this.setState({ totalPrice: newPriceVal, ingredients: newIngredinets });
+  //   this.updatepurchasablestate(newIngredinets);
+  // };
 
   purchasedButon = () => {
     this.setState({ purchased: true });
@@ -95,7 +89,7 @@ class BurgerBuilder extends Component {
       queryparams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
       console.log("The elements combines as ", queryparams);
     }
-    queryparams.push('totalPrice=' + this.state.totalPrice);
+    queryparams.push('totalPrice=' + this.props.totalPrice);
     const queryString = queryparams.join("&");
 
 
@@ -128,8 +122,8 @@ class BurgerBuilder extends Component {
             ingredientsadded={this.props.onIngredientsAdded}
             igredientsremoved={this.props.onIngredientsremoved}
             disabled={disabledicons}
-            price={this.state.totalPrice}
-            pruchasebut={this.state.purchasebuton}
+            price={this.props.totalPrice}
+            pruchasebut={this.updatepurchasablestate(this.props.ing)}
             clicked={this.purchasedButon}
           />
         </Auxillary>
@@ -140,7 +134,7 @@ class BurgerBuilder extends Component {
           ingredients={this.props.ing}
           butclicked={this.backdropclickedHandler}
           clickedcontinue={this.continueboughtHandler}
-          price={this.state.totalPrice}
+          price={this.props.totalPrice}
         />
       );
     }
@@ -166,7 +160,8 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
   // console.log("from state" + state.ingredients);
   return {
-    ing: state.ingredients
+    ing: state.ingredients,
+    totalPrice: state.totalPrice
   }
 }
 
