@@ -3,6 +3,7 @@ import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import classes from "./Burger.css";
 
 const Burger = (props) => {
+
   let transformedingredients = Object.keys(props.ingredients)
     .map((product) => {
       return [...Array(props.ingredients[product])].map((_, times) => {
@@ -13,7 +14,7 @@ const Burger = (props) => {
       return arr.concat(el);
     }, []);
 
-  // console.log(transformedingredients);
+  console.log("from burgerjs" + transformedingredients);
 
   if (transformedingredients.length === 0) {
     transformedingredients = <p>please start adding the ingredients</p>;
