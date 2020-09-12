@@ -7,33 +7,7 @@ import {connect} from 'react-redux';
 
 
 class Checkout extends Component {
-    // state = {
-    //     ingredients: null,
-    //     totalPrice:0
-    // }
-
-    // UNSAFE_componentWillMount = () => {
-    //     const query = new URLSearchParams(this.props.location.Search);
-    //     console.log(this.props);
-    //     const ingredients = {};
-    //     let totalPrice=0;
-    //     for (let params of query.entries()) {
-    //             if(params[0]==="totalPrice"){
-    //                 totalPrice=params[1];
-    //             }else{
-    //                 ingredients[params[0]] = +params[1];
-    //             }
-                
-            
-    //         console.log(params[0], params[1]);
-
-    //     }
-
-    //     this.setState({ ingredients: ingredients,totalPrice:totalPrice });
-    //     console.log(this.state.ingredients);
-    // }
-
-
+   
     clickedcancledhandler = () => {
         this.props.history.goBack();
     }
@@ -45,7 +19,7 @@ class Checkout extends Component {
     render() {
         return (
             <div>
-                <CheckoutSummary ingredients={this.props.ingredients}
+                <CheckoutSummary ingredients={this.props.ing}
                     clickedcancled={this.clickedcancledhandler}
                     clickedcontinue={this.clickedcontinuehandler} />
                 <Route path={this.props.match.path + '/collect-data'} 
@@ -56,11 +30,12 @@ class Checkout extends Component {
 
 };
 
-const mapStateToProps=state=>{
-    return{
-        ings:state.ingredients,
-        totalPrice:state.totalPrice
+const mapStateToProps = state => {
+    //  console.log("from state" + state.ingredients);
+    return {
+      ing: state.ingredients
+      
     }
-}
+  }
 
 export default connect(mapStateToProps) (Checkout);

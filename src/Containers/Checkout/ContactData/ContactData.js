@@ -78,7 +78,7 @@ class ContactData extends Component {
     console.log(formData);
 
     const orders = {
-      ingredients: this.props.ingredients,
+      ingredients: this.props.ings,
       totalPrice: this.props.totalPrice,
       OrderData: formData
 
