@@ -1,15 +1,10 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 // import { stat } from 'fs-extra';
 
 const initialState = {
-    ingredients: {
-        Salad: 0,
-        Bacon: 0,
-        Meat: 0,
-        Cheese: 0
-
-    },
-    totalPrice: 6.8
+    ingredients: null,
+    totalPrice: 6.8,
+    error:false
 }
 
 const INGREDIENTS_PRICE = {
@@ -42,6 +37,22 @@ const reducer = (state = initialState, action) => {
                 },
                 totalPrice: state.totalPrice - INGREDIENTS_PRICE[action.IngredientName]
             }
+            case actionTypes.SET_INGREDIENTS:
+                return {
+                    ...state,
+                    ingredients:{
+                        Salad: action.ingredients.Salad,
+                        Bacon: action.ingredients.Bacon,
+                        Cheese: action.ingredients.Cheese,
+                        Meat: action.ingredients.Meat
+                    },
+                    error:false
+                }
+                case actionTypes.SET_INGREDIENTS_FAILED:
+                    return {
+                     ...state,
+                     error:true
+                    }    
         default:
             return state
     }

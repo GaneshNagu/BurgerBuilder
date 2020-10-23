@@ -85,18 +85,7 @@ class ContactData extends Component {
     };
     console.log(orders);
 
-    axios
-      .post("/order.json", orders)
-      .then((Response) => {
-        console.log(Response);
-        this.setState({ Loading: false });
-        this.props.history.push('/');
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ Loading: false });
-      });
-
+ 
 
   }
   onchangeHandler = (event, identifier) => {
